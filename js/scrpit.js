@@ -128,12 +128,94 @@
 //   console.log(allMonths[i])
 //////////////////////////////////////////
 
-function getChangeimg() {
-  changesur = document.getElementsByTagName("img");
-  console.log(changesur[0].src);
-  if (changesur[0].src == "file:///D:/JS%20Test/imgs/bg1-360x260.jpg") {
-    changesur[0].src = "file:///D:/JS%20Test/imgs/bg3-360x260.jpg";
+// function getChangeimg() {
+//   changesur = document.getElementsByTagName("img");
+//   console.log(changesur[0].src);
+//   if (changesur[0].src == "file:///D:/JS%20Test/imgs/bg1-360x260.jpg") {
+//     changesur[0].src = "file:///D:/JS%20Test/imgs/bg3-360x260.jpg";
+//   } else {
+//     changesur[0].src = "file:///D:/JS%20Test/imgs/bg1-360x260.jpg";
+//   }
+// }
+////////////////////////////////////////////////////////////////////////////////////
+// var ulId = document.getElementById("Parent");
+// var classElm = document.getElementsByClassName("sup")
+// pro = classElm[0].children;
+// function styleElemt(elem) {
+//   console.log(classElm);
+//   for (i = 0; i < pro.length;i++){
+//    pro[i].style.color = "Black"
+//   }
+//   elem.style.color = "Red"
+// }
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////// CRUD1////////////////////////////////////////
+
+let getAddBtnId = document.getElementById("#btnAdd");
+let getInputName = document.getElementById("inPutName");
+let getInputBalance = document.getElementById("inPutBalance");
+let getInputId = document.getElementById("inPutId");
+
+allUsers = [];
+function getAddUser() {
+  if (getInputName.value == "") {
+    alert("Plz Inter A Name ??");
+  } else if (getInputBalance.value == "") {
+    alert("Plz Inter  Balance Number ??");
+  } else if (getInputId.value == "") {
+    alert("Plz Inter  ID Number ??");
   } else {
-    changesur[0].src = "file:///D:/JS%20Test/imgs/bg1-360x260.jpg";
+    user = {
+      name: getInputName.value,
+      balance: getInputBalance.value,
+      id: getInputId.value,
+    };
+    allUsers.push(user);
+    getDisplayUser();
+    clearForm();
   }
+}
+function getDisplayUser() {
+  cartona = "";
+  for (i = 0; i < allUsers.length; i++) {
+    cartona += `<tr>
+              <td>
+                ${i + 1}
+              </td>
+              <td>
+                ${allUsers[i].name}
+              </td>
+              <td>
+                ${allUsers[i].balance}
+              </td>
+              <td>
+                ${allUsers[i].id}
+              </td>
+              <td class="text-center">
+                <button onclick="getUpDate(${i})"   class="btn btn-primary px-3 me-3">Edit</button>
+                <button onclick="getDeleteUser(${i})" class="btn btn-warning px-2">Delete</button>
+              </td>
+            </tr>`;
+  }
+  document.getElementById("displayUsers").innerHTML = cartona;
+}
+
+function getDeleteUser(i) {
+  allUsers.splice(i, 1);
+  getDisplayUser();
+}
+function getUpDate(i) {
+  let newName = prompt("Enter Ur New Name");
+  let newBalance = prompt("Enter Ur New Balance");
+  let newId = prompt("Enter Ur New ID");
+  allUsers[i].name = newName;
+  allUsers[i].balance = newBalance;
+  allUsers[i].id = newId;
+  getDisplayUser();
+}
+function clearForm() {
+  getInputName.value = "";
+  getInputBalance.value = "";
+  getInputId.value = "";
 }
