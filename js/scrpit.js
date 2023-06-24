@@ -158,6 +158,13 @@ let getInputBalance = document.getElementById("inPutBalance");
 let getInputId = document.getElementById("inPutId");
 
 allUsers = [];
+if (localStorage.getItem("AllUsers") != null) {
+  
+  allUsers = JSON.parse(localStorage.getItem("AllUsers"));
+} else {
+  allUsers = []
+}
+getDisplayUser();
 function getAddUser() {
   if (getInputName.value == "") {
     alert("Plz Inter A Name ??");
@@ -172,6 +179,7 @@ function getAddUser() {
       id: getInputId.value,
     };
     allUsers.push(user);
+    localStorage.setItem("AllUsers", JSON.stringify(allUsers));
     getDisplayUser();
     clearForm();
   }
@@ -203,6 +211,7 @@ function getDisplayUser() {
 
 function getDeleteUser(i) {
   allUsers.splice(i, 1);
+    localStorage.setItem("AllUsers", JSON.stringify(allUsers));
   getDisplayUser();
 }
 function getUpDate(i) {
@@ -212,6 +221,7 @@ function getUpDate(i) {
   allUsers[i].name = newName;
   allUsers[i].balance = newBalance;
   allUsers[i].id = newId;
+  localStorage.setItem("AllUsers",JSON.stringify(allUsers));
   getDisplayUser();
 }
 function clearForm() {
